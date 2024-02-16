@@ -1,37 +1,37 @@
 -- создание таблиц
 
 create table customer (
-	customer_id int primary key,
-	first_name varchar(255),
-	last_name varchar(255),
-	gender varchar(10),
-	DOB date,
-	job_title varchar(255),
-	job_industry_category varchar(255),
-	wealth_segment varchar(255),
-	deceased_indicator varchar (1),
-	owns_car varchar (4),
-	address varchar(255),
-	postcode varchar (4), 
-	state varchar (255),
-	country varchar (100),
-	property_valuation int
+	customer_id int4 primary key,
+	first_name varchar(50),
+	last_name varchar(50),
+	gender varchar(30),
+	dob date,
+	job_title varchar(50),
+	job_industry_category varchar(50),
+	wealth_segment varchar(50),
+	deceased_indicator varchar (50),
+	owns_car varchar (30),
+	address varchar(50),
+	postcode varchar (30), 
+	state varchar (30),
+	country varchar (30),
+	property_valuation int4
 	
 );
 
 CREATE TABLE TRANSACTION (
-	transaction_id int PRIMARY KEY,
-	product_id	int,
-	customer_id int,
+	transaction_id int4 PRIMARY KEY,
+	product_id	int4,
+	customer_id int4,
 	transaction_date date,
 	online_order boolean,
-	order_status varchar (255),
-	brand varchar (255),
-	product_line varchar (255),
-	product_class varchar (255),
-	product_size varchar (255),
-	list_price float,
-	standard_cost float
+	order_status varchar (30),
+	brand varchar (30),
+	product_line varchar (30),
+	product_class varchar (30),
+	product_size varchar (30),
+	list_price float4,
+	standard_cost float4
 );
 
 -- Вывести все уникальные бренды, у которых стандартная стоимость выше 1500 долларов.
