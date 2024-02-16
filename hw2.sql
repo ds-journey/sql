@@ -40,7 +40,7 @@ where standard_cost > 1500;
 
 --Вывести все подтвержденные транзакции за период '2017-04-01' по '2017-04-09' включительно.
 select t.* from "transaction" t
-where t.order_status = 'Approved' and t.transaction_date between '2017-04-01'::date and '2017-04-09'::date;
+where t.order_status = 'Approved' and t.transaction_date::date between '2017-04-01' and '2017-04-09';
 
 
 -- Вывести все профессии у клиентов из сферы IT или Financial Services, которые начинаются с фразы 'Senior'.
@@ -68,4 +68,4 @@ where c.job_industry_category = 'IT' and t.standard_cost notnull and t.standard_
 -- Вывести всех клиентов из сферы IT и Health, у которых есть подтвержденные транзакции за период '2017-07-07' по '2017-07-17'.
 select c.customer_id, c.first_name, c.last_name, c.job_industry_category, t.transaction_date,  t.order_status  from customer c  
 join "transaction" t on c.customer_id = t.customer_id
-where c.job_industry_category in ('IT', 'Health') and t.order_status = 'Approved' and t.transaction_date between '2017-07-07'::date and '2017-07-17'::date;
+where c.job_industry_category in ('IT', 'Health') and t.order_status = 'Approved' and t.transaction_date::date between '2017-07-07' and '2017-07-17';
