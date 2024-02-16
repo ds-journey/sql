@@ -54,7 +54,8 @@ where c.job_industry_category = 'Financial Services');
 
 -- Вывести 10 клиентов, которые оформили онлайн-заказ продукции из брендов 'Giant Bicycles', 'Norco Bicycles', 'Trek Bicycles'.
 select c.first_name, c.last_name from customer c
-where c.customer_id in (select t.customer_id from "transaction" t where t.brand in ('Giant Bicycles', 'Norco Bicycles', 'Trek Bicycles'));
+where c.customer_id in (select t.customer_id from "transaction" t where t.brand in ('Giant Bicycles', 'Norco Bicycles', 'Trek Bicycles') and t.online_order is true) 
+limit 10;
 
 -- Вывести всех клиентов, у которых нет транзакций.
 select c.first_name, c.last_name from customer c
