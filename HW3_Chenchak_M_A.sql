@@ -121,6 +121,7 @@ WHERE transaction_rank = 1;
 
 
 -- Вывести имена, фамилии и профессии клиентов, между транзакциями которых был максимальный интервал (интервал вычисляется в днях)
+-- максимальная разница между самой первой и самой последней транзакцией
 WITH transaction_gaps AS (
     SELECT 
     	c.customer_id,
@@ -140,3 +141,25 @@ SELECT distinct
 FROM transaction_gaps
 where (transaction_gaps.last_transaction_date - transaction_gaps.first_transaction_date) = 
 (select MAX(transaction_gaps.last_transaction_date - transaction_gaps.first_transaction_date) FROM transaction_gaps);
+
+
+-- максимальная разница между соседними транзакциями
+WITH transaction_tab AS (
+    SELECT 
+     c.customer_id,
+        c.first_name,
+        c.last_name,
+        c.job_title,
+       lag(t.transaction_date) OVER (PARTITION BY t.customer_id order by t.transaction_date) AS lag_transaction,
+       lead(t.transaction_date) OVER (PARTITION BY c.customer_id ORDER BY t.transaction_date) AS lead_transaction 
+    FROM customer c
+    JOIN transaction t ON c.customer_id = t.customer_id
+)
+SELECT distinct 
+    first_name,
+    last_name,
+    job_title,
+    transaction_tab.lead_transaction - transaction_tab.lag_transaction as max_interval
+FROM transaction_tab
+where (transaction_tab.lead_transaction - transaction_tab.lag_transaction) = 
+(select MAX(transaction_tab.lead_transaction - transaction_tab.lag_transaction) FROM transaction_tab);
